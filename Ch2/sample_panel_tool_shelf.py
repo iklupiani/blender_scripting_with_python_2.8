@@ -20,12 +20,12 @@
 bl_info = {
     "name": "Sample UI Panel in Tool Shelf/Tools tab",
     "author": "Isabel Lupiani",
-    "version": (1, 2, 0),
-    "blender": (2, 77, 0),
+    "version": (1, 1, 0),
+    "blender": (2, 80, 0),
     "location": "Tool Shelf > Tools > Sample Panel",
     "warning": "",
     "description": "This add-on creates a sample UI Panel in Tool Shelf/Tools tab",
-    "wiki_url": "http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Objects/Sample_Panel",    
+    "wiki_url": "",    
     "category": "Object", # This is the category the add-on will be listed under User Preferences/Add-ons
 }
 
@@ -127,10 +127,10 @@ def del_scene_vars():
     del bpy.types.Scene.sample_int_pcrt
     del bpy.types.Scene.sample_float
 
-class SamplePanelToolShelf(bpy.types.Panel):
+class Sample_PT_Shelf(bpy.types.Panel):
     bl_label = "Sample Panel"
     bl_space_type = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI"
     bl_category = 'Tools'
     """Sample UI panel located in the Tool Shelf/Tools tab."""
 
@@ -181,7 +181,7 @@ class SamplePanelToolShelf(bpy.types.Panel):
             r = box2.row(align = True)
             r.label(text = str(ob.name))
 
-classes = [SamplePanelToolShelf]
+classes = [Sample_PT_Shelf]
 
 def register():
     for c in classes:
