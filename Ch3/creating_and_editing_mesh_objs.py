@@ -6,16 +6,14 @@ import math
 
 def add_cone_once(context, location = (0, 0, 0), vertices = 8, radius1 = 2.0, depth = 3.0):
     if context.scene.objects.find('Cone') < 0:
-        if context.scene.objects.active is not None:
-            bpy.ops.object.mode_set(mode = 'OBJECT')
         bpy.ops.mesh.primitive_cone_add(location = location, vertices = vertices, radius1 = radius1, depth = depth)
 
 def get_object_copy(context, obj):
-    context.scene.objects.active = obj
+    context.view_layer.objects.active = obj
     bpy.ops.object.mode_set(mode = 'OBJECT')
     obj_copy = bpy.data.objects.new(name = obj.name + '_copy', object_data = obj.data.copy())
-    context.scene.objects.link(obj_copy)
-    context.scene.update()
+    context.collection.objects.link(obj_copy)
+    context.view_layer.update()
     return obj_copy
 
 def bmesh_from_existing():
@@ -26,15 +24,13 @@ def bmesh_from_existing():
     cone_copy_mirror_mod = cone_copy.modifiers.new('mirror_mod', 'MIRROR')
     cone_copy_mirror_mod.show_in_editmode = True
     cone_copy_mirror_mod.use_clip = True
-    cone_copy_mirror_mod.use_x = False  
-    cone_copy_mirror_mod.use_y = False 
-    cone_copy_mirror_mod.use_z = True   
+    cone_copy_mirror_mod.use_axis[0] = False  
+    cone_copy_mirror_mod.use_axis[1] = False 
+    cone_copy_mirror_mod.use_axis[2] = True   
     cone_copy_subsurf_mod = cone_copy.modifiers.new('subsurf_mod', 'SUBSURF')
     cone_copy_subsurf_mod.levels = 1
     
-    if bpy.context.scene.objects.active is not None:
-        bpy.ops.object.mode_set(mode = 'OBJECT')
-    bpy.context.scene.objects.active = cone_copy
+    bpy.context.view_layer.objects.active = cone_copy
     bpy.ops.object.mode_set(mode = 'EDIT')
     
     bm = bmesh.from_edit_mesh(cone_copy.data)
@@ -46,24 +42,19 @@ def get_placeholder_mesh_obj_and_bm(context, name, location = Vector((0, 0, 0)))
     mesh_placeholder = bpy.data.meshes.new(name = name)
     obj_placeholder = bpy.data.objects.new(name = name, object_data = mesh_placeholder)
     obj_placeholder.location = location
-    context.scene.objects.link(obj_placeholder)
-    
-    if context.scene.objects.active is not None:
-        bpy.ops.object.mode_set(mode = 'OBJECT')
-    context.scene.objects.active = obj_placeholder
+    context.collection.objects.link(obj_placeholder)
+    context.view_layer.objects.active = obj_placeholder
     bpy.ops.object.mode_set(mode = 'EDIT')
-    
     bm = bmesh.from_edit_mesh(mesh_placeholder)
     return bm, obj_placeholder
     
 def bmesh_from_scratch():
     bm, obj_scratch = get_placeholder_mesh_obj_and_bm(bpy.context, 'from_scratch', Vector((0, 0, 0)))   
     bm = bmesh.from_edit_mesh(obj_scratch.data)
-    bpy.ops.mesh.primitive_monkey_add(location = (0, -5, -5), rotation = (0, 0, 0), radius = 2.5)
-    bpy.ops.mesh.primitive_monkey_add(location = (0, 0, 0), rotation = (0, 0, radians(45)), radius = 2)
-    bpy.ops.mesh.primitive_monkey_add(location = (0, 5, 5), rotation = (0, 0, radians(90)), radius = 1.5)
+    bpy.ops.mesh.primitive_monkey_add(location = (0, -5, -5), rotation = (0, 0, 0), size = 2.5)
+    bpy.ops.mesh.primitive_monkey_add(location = (0, 0, 0), rotation = (0, 0, radians(45)), size = 2)
+    bpy.ops.mesh.primitive_monkey_add(location = (0, 5, 5), rotation = (0, 0, radians(90)), size = 1.5)
     bmesh.update_edit_mesh(obj_scratch.data)
-    bpy.context.scene.update()
     
 def bmesh_as_sketch_pad():     
     add_cone_once(bpy.context, (2, 5, 3), 16, 1.5, 5.0)
@@ -74,7 +65,7 @@ def bmesh_as_sketch_pad():
     cone_copy_2.location = cone.location + Vector((0, -9, 0))    
     
     bm = bmesh.new()
-    bmesh.ops.create_circle(bm, cap_ends = True, segments = 8, diameter = 2)
+    bmesh.ops.create_circle(bm, cap_ends = True, segments = 8, radius = 1)
     bm.to_mesh(cone_copy_1.data)
     bm.to_mesh(cone_copy_2.data)
         
@@ -112,7 +103,7 @@ def generate_barrel(context, name, radius_end, radius_mid, height, num_segments,
     bpy.ops.mesh.subdivide(smoothness = 1.1)
     
     bmesh.update_edit_mesh(barrel_obj.data)
-    context.scene.update()    
+    context.view_layer.update()    
 
 # Sample Usage
 #bmesh_from_existing()
