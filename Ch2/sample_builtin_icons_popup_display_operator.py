@@ -20,13 +20,11 @@
 bl_info = {
     "name": "Sample Built-in Icons Pop-up Display Operator",
     "author": "Isabel Lupiani",
-    "version": (1, 0, 0),
-    "blender": (2, 77, 0),
+    "version": (2, 0, 0),
+    "blender": (2, 83, 0),
     "location": "View",
     "warning": "",
     "description": "This add-on displays a list of all built-in icons in a pop-up dialog",
-    "wiki_url": """http://wiki.blender.org/index.php/Extensions:2.6/Py/
-                   Scripts/Objects/Sample_Builtin_Icons_Popup_Display_Operator""",    
     "category": "Object", # This is the category the add-on will be listed under User Preferences/Add-ons
 }
 
@@ -66,7 +64,7 @@ class SampleBuiltinIconsPopupDisplayOperator(bpy.types.Operator):
                                        
     def invoke(self, context, event):
         wm = context.window_manager
-        return wm.invoke_props_dialog(self, width=1890, height=90)
+        return wm.invoke_props_dialog(operator=self, width=1890)
     
 def menu_func(self, context):
     self.layout.operator(SampleBuiltinIconsPopupDisplayOperator.bl_idname, text="Built-in Icons Pop-up Display", icon="IMAGE_DATA")    
