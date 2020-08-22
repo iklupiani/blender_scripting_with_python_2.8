@@ -42,7 +42,7 @@ def init_scene_vars():
     # to type in a string.
     bpy.types.Scene.sample_text = StringProperty(
         name = "Text",
-        description = "Sample text input.",
+        description = "Sample text input",
         maxlen=1024, # Max length of the string.
         subtype = "NONE") # Plain text input field.
 
@@ -52,7 +52,7 @@ def init_scene_vars():
     # in the text field.
     bpy.types.Scene.sample_filename = StringProperty(
         name = "Filename",
-        description = "Sample filename input.",
+        description = "Sample filename input",
         maxlen = 1024, # Max length of the string.
         subtype = "FILE_PATH", # Can also be DIR_PATH, FILE_NAME, PASSWORD, etc.
         options = {'SKIP_SAVE'})
@@ -64,7 +64,7 @@ def init_scene_vars():
     # checked.
     bpy.types.Scene.sample_checkbox = bpy.props.BoolProperty(
         name = "Checkbox",
-        description = "Sample checkbox.",
+        description = "Sample checkbox",
         default = True)
 
     # This automatically produces a dropdown list showing 
@@ -90,7 +90,7 @@ def init_scene_vars():
     # typed in smaller than min will be clamped to min.
     bpy.types.Scene.sample_int = bpy.props.IntProperty(
         name = "Integer",
-        description = "Sample integer input.",
+        description = "Sample integer input",
         default = 30,
         min = 20,
         max = 40)
@@ -100,7 +100,7 @@ def init_scene_vars():
     # they are entering a percentage. 
     bpy.types.Scene.sample_int_pcrt = bpy.props.IntProperty(
         name = "Percentage",
-        description = "Sample integer percentage input.",
+        description = "Sample integer percentage input",
         default = 50,
         min = 10,
         max = 100,
@@ -113,7 +113,7 @@ def init_scene_vars():
     # regardless of soft_min/soft_max. 
     bpy.types.Scene.sample_float = bpy.props.FloatProperty(
         name = "Float",
-        description = "Sample float input.",
+        description = "Sample float input",
         default = 0.0,
         soft_min = -5.0,
         soft_max = 5.0)
