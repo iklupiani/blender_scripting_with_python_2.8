@@ -16,17 +16,17 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# Define the meta data that will be listed under this add-on's entry in User Preferences/Add-ons.
+# Define the meta data that will be listed under this add-on's entry in Edit > Preferences... > Add-ons.
 bl_info = {
-    "name": "Sample UI Panel in Tool Shelf/Tools tab",
+    "name": "Sample UI Panel in Properties Shelf/Tool tab",
     "author": "Isabel Lupiani",
     "version": (1, 1, 0),
-    "blender": (2, 80, 0),
-    "location": "Tool Shelf > Tools > Sample Panel",
+    "blender": (2, 80, 3),
+    "location": "Properties Shelf > Tool > Sample Panel",
     "warning": "",
-    "description": "This add-on creates a sample UI Panel in Tool Shelf/Tools tab",
+    "description": "This add-on creates a sample UI Panel in the Properties Shelf > Tool tab",
     "wiki_url": "",    
-    "category": "Object", # This is the category the add-on will be listed under User Preferences/Add-ons
+    "category": "Object", # This is the category the add-on will be listed under Edit > Preferences... > Add-ons
 }
 
 import bpy
@@ -131,8 +131,8 @@ class Sample_PT_Shelf(bpy.types.Panel):
     bl_label = "Sample Panel"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = 'Tools'
-    """Sample UI panel located in the Tool Shelf/Tools tab."""
+    bl_category = 'Tool'
+    """Sample UI panel located in the Properties Shelf/Tool tab."""
 
     def draw(self, context):
         layout = self.layout
