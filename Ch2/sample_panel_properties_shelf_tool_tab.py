@@ -177,7 +177,7 @@ class SAMPLE_PT_Shelf(bpy.types.Panel):
         # Display the names of the current scene objects.
         box2 = col0.box()
         box2.label(text = "Scene Objects:", icon = 'OBJECT_DATA')
-        for ob in bpy.data.scenes['Scene'].objects:
+        for ob in context.scene.objects:
             r = box2.row(align = True)
             r.label(text = str(ob.name))
             print(str(ob.name))
