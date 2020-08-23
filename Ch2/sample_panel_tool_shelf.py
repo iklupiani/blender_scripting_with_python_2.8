@@ -18,9 +18,9 @@
 
 # Define the meta data that will be listed under this add-on's entry in Edit > Preferences... > Add-ons.
 bl_info = {
-    "name": "Sample UI Panel in Properties Shelf/Tool tab",
+    "name": "Sample UI Panel in the Properties Shelf > Tool tab",
     "author": "Isabel Lupiani",
-    "version": (1, 1, 0),
+    "version": (1, 2, 0),
     "blender": (2, 80, 3),
     "location": "Properties Shelf > Tool > Sample Panel",
     "warning": "",
@@ -127,12 +127,12 @@ def del_scene_vars():
     del bpy.types.Scene.sample_int_pcrt
     del bpy.types.Scene.sample_float
 
-class Sample_PT_Shelf(bpy.types.Panel):
+class SAMPLE_PT_Shelf(bpy.types.Panel):
     bl_label = "Sample Panel"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = 'Tool'
-    """Sample UI panel located in the Properties Shelf/Tool tab."""
+    """Sample UI panel located in the Properties Shelf > Tool tab."""
 
     def draw(self, context):
         layout = self.layout
@@ -158,7 +158,7 @@ class Sample_PT_Shelf(bpy.types.Panel):
         # Display the user entered values. You should see them change as you 
         # edit the properties above.
         box1 = col0.box()
-        box1.label("User Entered Values:", icon = 'TEXT')
+        box1.label(text = "User Entered Values:", icon = 'TEXT')
         r = box1.row(align = True)
         r.label(text = "Text: " + str(context.scene.sample_text))
         r = box1.row(align = True)
@@ -176,12 +176,13 @@ class Sample_PT_Shelf(bpy.types.Panel):
 
         # Display the names of the current scene objects.
         box2 = col0.box()
-        box2.label("Scene Objects:", icon = 'OBJECT_DATA')
-        for ob in context.scene.objects:
+        box2.label(text = "Scene Objects:", icon = 'OBJECT_DATA')
+        for ob in bpy.data.scenes['Scene'].objects:
             r = box2.row(align = True)
             r.label(text = str(ob.name))
+            print(str(ob.name))
 
-classes = [Sample_PT_Shelf]
+classes = [SAMPLE_PT_Shelf]
 
 def register():
     for c in classes:
