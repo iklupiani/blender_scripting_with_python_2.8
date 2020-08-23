@@ -180,7 +180,6 @@ class SAMPLE_PT_Shelf(bpy.types.Panel):
         for ob in context.scene.objects:
             r = box2.row(align = True)
             r.label(text = str(ob.name))
-            print(str(ob.name))
 
 classes = [SAMPLE_PT_Shelf]
 
