@@ -1,12 +1,15 @@
-import bpy
+import bpy 
 import bmesh
 from mathutils import Vector
 from math import radians
 import math
 
 def add_cone_once(context, location = (0, 0, 0), vertices = 8, radius1 = 2.0, depth = 3.0):
-    if context.scene.objects.find('Cone') < 0:
-        bpy.ops.mesh.primitive_cone_add(location = location, vertices = vertices, radius1 = radius1, depth = depth)
+    if context.scene.objects.find('Cone') < 0: 
+        if context.view_layer.objects.active is not None: 
+            bpy.ops.object.mode_set(mode = 'OBJECT') 
+        bpy.ops.mesh.primitive_cone_add(location = location, vertices = vertices, \
+        radius1 = radius1, depth = depth) 
 
 def get_object_copy(context, obj):
     context.view_layer.objects.active = obj
