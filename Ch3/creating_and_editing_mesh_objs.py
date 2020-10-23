@@ -30,23 +30,25 @@ def get_object_soft_copy(context, obj):
 def bmesh_from_existing():
     add_cone_once(bpy.context, (2, 3, 3), 16, 1.5, 5.0)
     cone = bpy.data.objects['Cone']
-    cone_copy = get_object_copy(bpy.context, cone)
+    cone_copy = get_object_hard_copy(bpy.context, cone) 
     cone_copy.location = cone.location + Vector((0, -6, 0))
-    cone_copy_mirror_mod = cone_copy.modifiers.new('mirror_mod', 'MIRROR')
+    cone_copy_mirror_mod = cone_copy.modifiers.new('mirror_mod', 'MIRROR') 
     cone_copy_mirror_mod.show_in_editmode = True
     cone_copy_mirror_mod.use_clip = True
     cone_copy_mirror_mod.use_axis[0] = False  
     cone_copy_mirror_mod.use_axis[1] = False 
     cone_copy_mirror_mod.use_axis[2] = True   
-    cone_copy_subsurf_mod = cone_copy.modifiers.new('subsurf_mod', 'SUBSURF')
+    cone_copy_subsurf_mod = cone_copy.modifiers.new('subsurf_mod', 'SUBSURF') 
     cone_copy_subsurf_mod.levels = 1
     
+    if bpy.context.view_layer.objects.active is not None: 
+        bpy.ops.object.mode_set(mode = 'OBJECT')
     bpy.context.view_layer.objects.active = cone_copy
     bpy.ops.object.mode_set(mode = 'EDIT')
-    
-    bm = bmesh.from_edit_mesh(cone_copy.data)
-    bmesh.ops.scale(bm, vec = (1, 2, 0.5), verts = bm.verts)
-    bmesh.update_edit_mesh(cone_copy.data)
+
+    bm = bmesh.from_edit_mesh(cone_copy.data) 
+    bmesh.ops.scale(bm, vec = (1, 2, 0.5), verts = bm.verts) 
+    bmesh.update_edit_mesh(cone_copy.data) 
     bpy.ops.object.mode_set(mode = 'OBJECT')
     
 def get_placeholder_mesh_obj_and_bm(context, name, location = Vector((0, 0, 0))):
