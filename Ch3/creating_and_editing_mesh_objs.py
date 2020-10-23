@@ -11,10 +11,18 @@ def add_cone_once(context, location = (0, 0, 0), vertices = 8, radius1 = 2.0, de
         bpy.ops.mesh.primitive_cone_add(location = location, vertices = vertices, \
         radius1 = radius1, depth = depth) 
 
-def get_object_copy(context, obj):
+def get_object_hard_copy(context, obj):
     context.view_layer.objects.active = obj
     bpy.ops.object.mode_set(mode = 'OBJECT')
     obj_copy = bpy.data.objects.new(name = obj.name + '_copy', object_data = obj.data.copy())
+    context.collection.objects.link(obj_copy)
+    context.view_layer.update()
+    return obj_copy
+
+def get_object_soft_copy(context, obj):
+    context.view_layer.objects.active = obj
+    bpy.ops.object.mode_set(mode = 'OBJECT')
+    obj_copy = bpy.data.objects.new(name = obj.name + '_soft_copy', object_data = obj.data)
     context.collection.objects.link(obj_copy)
     context.view_layer.update()
     return obj_copy
