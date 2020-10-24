@@ -72,9 +72,9 @@ def bmesh_from_scratch():
 def bmesh_as_sketch_pad():     
     add_cone_once(bpy.context, (2, 5, 3), 16, 1.5, 5.0)
     cone = bpy.data.objects['Cone']
-    cone_copy_1 = get_object_copy(bpy.context, cone)
+    cone_copy_1 = get_object_hard_copy(bpy.context, cone)
     cone_copy_1.location = cone.location + Vector((0, -4, 0))
-    cone_copy_2 = get_object_copy(bpy.context, cone)
+    cone_copy_2 = get_object_hard_copy(bpy.context, cone)
     cone_copy_2.location = cone.location + Vector((0, -9, 0))    
     
     bm = bmesh.new()
@@ -119,9 +119,14 @@ def generate_barrel(context, name, radius_end, radius_mid, height, num_segments,
     context.view_layer.update()    
 
 # Sample Usage
+#add_cone_once(bpy.context)
+#get_object_hard_copy(bpy.context, bpy.context.scene.objects['Cone'])
+#get_object_soft_copy(bpy.context, bpy.context.scene.objects['Cone'])
+
 #bmesh_from_existing()
 #bmesh_from_scratch()
 #bmesh_as_sketch_pad()
+
 generate_barrel(bpy.context, 'test_barrel', radius_end = 3, radius_mid = 5, height = 10, num_segments = 16, center = Vector((0, 0, 5)))
 #generate_barrel(bpy.context, 'test_barrel', radius_end = 3, radius_mid = 5, height = 10, num_segments = 16, center = Vector((4, 7, 9)))
 #generate_barrel(bpy.context, 'test_barrel', radius_end = 5, radius_mid = 2, height = 7, num_segments = 16, center = Vector((0, 0, 5)))
