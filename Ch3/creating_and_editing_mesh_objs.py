@@ -101,7 +101,7 @@ def add_circle(bm, radius, num_segments, z):
         
 def generate_barrel(context, name, radius_end, radius_mid, height, num_segments, \
     center = Vector((0, 0, 0))):
-    bm, barrel_obj = get_placeholder_mesh_obj_and_bm(bpy.context, 'barrel_obj', center)
+    bm, barrel_obj = get_placeholder_mesh_obj_and_bm(bpy.context, name, center)
     
     bottom_cap_verts = add_circle(bm, radius_end, num_segments, -height/2)
     add_circle(bm, radius_mid, num_segments, 0)
@@ -128,5 +128,5 @@ def generate_barrel(context, name, radius_end, radius_mid, height, num_segments,
 #bmesh_as_sketch_pad()
 
 generate_barrel(bpy.context, 'test_barrel', radius_end = 3, radius_mid = 5, height = 10, num_segments = 16, center = Vector((0, 0, 5)))
-#generate_barrel(bpy.context, 'test_barrel', radius_end = 3, radius_mid = 5, height = 10, num_segments = 16, center = Vector((4, 7, 9)))
-#generate_barrel(bpy.context, 'test_barrel', radius_end = 5, radius_mid = 2, height = 7, num_segments = 16, center = Vector((0, 0, 5)))
+generate_barrel(bpy.context, 'test_tall_slim_barrel', radius_end = 1.5, radius_mid = 3, height = 15, num_segments = 16, center = Vector((0, 12, 7.5)))
+generate_barrel(bpy.context, 'test_bar_stool', radius_end = 5, radius_mid = 2, height = 7, num_segments = 16, center = Vector((12, 0, 3.5)))
